@@ -43,7 +43,6 @@ function createPreviewElement(book) {
           <div class="preview__author">${authors[author]}</div>
       </div>
   `;
-
   return element;
 }
 
@@ -57,11 +56,9 @@ const listItemsContainer = document.querySelector('[data-list-items]');
 if (listItemsContainer) {
   listItemsContainer.appendChild(starting);
 }
-/**
- * 
- */
 
 /**
+ * 
  * Create an option element for a genre.
  * @param {string} id - The ID of the genre.
  * @param {string} name - The name of the genre.
@@ -86,7 +83,7 @@ function createGenreOption(id, name) {
     const element = createGenreOption(id, name);
     genreHtml.appendChild(element);
   }
-  
+   
   const searchGenresContainer = document.querySelector('[data-search-genres]');
   if (searchGenresContainer) {
     searchGenresContainer.appendChild(genreHtml);
