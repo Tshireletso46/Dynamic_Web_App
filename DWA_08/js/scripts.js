@@ -1,6 +1,38 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
+
+class BookList {
+    constructor() {
+      this._page = 1;
+      this._matches = books;
+    }
+  
+    // pages
+    get page() {
+      return this._page;
+    }
+  
+    set page(value) {
+      this._page = value; 
+      {
+        throw new Error ('The variables cannot be changed!')
+      }
+    }
+
+    // matches
+    get matches() {
+      return this._matches;
+    }
+  
+    set matches(value) {
+      this._matches = value;
+      {
+        throw new Error ('The variables cannot be changed!')
+      }
+    }
+  }
+
 /**
  * show books
  */
@@ -40,6 +72,7 @@ function searchOptions(option, firstSearch) {
     }
     return searchHtml
 }
+
 document.querySelector('[data-search-genres]').appendChild(searchOptions(genres, "Genres"))
 document.querySelector('[data-search-authors]').appendChild(searchOptions(authors, "Authors"))
 //settings
@@ -86,6 +119,7 @@ document.querySelector('[data-list-button]').addEventListener('click', () => {
     <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
 `
 })
+
 //event listners for all buttons
 document.querySelector('[data-search-cancel]').addEventListener('click', () => {
     document.querySelector('[data-search-overlay]').open = false
@@ -131,6 +165,7 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     } else {
         document.querySelector('[data-list-message]').classList.remove('list__message_show')
     }
+    
 //display filtered books and create fragment to call function and append the fragment to the interface
     document.querySelector('[data-list-items]').innerHTML = ''
     const newItems = document.createDocumentFragment()
@@ -146,38 +181,30 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
 })
 
 //display book details
-function handleListItemClick(event, books, authors) {
-    const pathArray = Array.from(event.path || event.composedPath());
-    let active = null;
+function previewBooks() {
+document.querySelector('[data-list-items]').addEventListener('click', (event) => {
+    let pathArray = Array.from(event.path || event.composedPath())
+        let active = null
     for (const node of pathArray) {
-      if (active) break;
-      if (node?.dataset?.preview) {
-        let result = null;
-        for (const singleBook of books) {
-          if (result) break;
-          if (singleBook.id === node?.dataset?.preview) result = singleBook;
+        if (active) break
+        if (node?.dataset?.preview) {
+            let result = null
+            for (const singleBook of books) {
+                if (result) break;
+                if (singleBook.id === node?.dataset?.preview) result = singleBook
+            }
+           active = result
         }
-        active = result;
-      }
     }
+
     if (active) {
-      document.querySelector('[data-list-active]').open = true;
-      document.querySelector('[data-list-blur]').src = active.image;
-      document.querySelector('[data-list-image]').src = active.image;
-      document.querySelector('[data-list-title]').innerText = active.title;
-      document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(
-        active.published
-      ).getFullYear()})`;
-      document.querySelector('[data-list-description]').innerText = active.description;
+        document.querySelector('[data-list-active]').open = true
+        document.querySelector('[data-list-blur]').src = active.image
+        document.querySelector('[data-list-image]').src = active.image
+        document.querySelector('[data-list-title]').innerText = active.title
+        document.querySelector('[data-list-subtitle]').innerText = `${authors[active.author]} (${new Date(active.published).getFullYear()})`
+        document.querySelector('[data-list-description]').innerText = active.description
     }
-  }
-  
-  // Usage example:
-  const books = [{/* book objects */}];
-  const authors = {/* author data */};
-  const listItemsElement = document.querySelector('[data-list-items]');
-  
-  listItemsElement.addEventListener('click', (event) => {
-    handleListItemClick(event, books, authors);
-  });
-  handleListItemClick()
+})
+}
+previewBooks();

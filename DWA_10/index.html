@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tally Count</title>
+    <link rel="stylesheet" href="./stylesheet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.0/cdn/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.0/cdn/shoelace-autoloader.js"></script>
+    <script src="./js/scripts.js" defer type="module"></script>
+
+</head>
+
+
+<body>
+    <header class="header">
+        <h1 class="header_title">Tally Count</h1>
+    </header>
+
+    <!-- <sl-button>Click me</sl-button> -->
+    <main class = "counter">
+        <button data-key="reset" class="reset">Reset</button>
+        <input data-key="number" class = "counter_value" readonly value="0">
+        <div class = "counter_actions">
+            <button data-key="add" class="counter_button">+</button>
+            <button data-key="subtract" class="counter_button counter_button-first">-</button>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        Inspired by <a class="foter_link" href="https://tallcount.app/">Tally Count</a>. Note that this is merely a
+        student prcatice project for learning JavaScript
+    </footer>
+</body>
+
+</html>
