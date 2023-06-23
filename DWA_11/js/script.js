@@ -36,9 +36,3 @@ const resetButton = () => {
 subtract.addEventListener('click', subtractHandler )
 add.addEventListener('click', addHandler)
 reset.addEventListener('click',resetButton )
-
-
-
-
-
-
