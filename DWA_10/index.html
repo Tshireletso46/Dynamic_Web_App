@@ -1,44 +1,37 @@
-const MAX_NUMBER = 15
-const MIN_NUMBER = -5
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" defer src="./js/scripts.js" defer type="module"></script>
+    <link rel="stylesheet" href="./stylesheet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/themes/light.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.4.0/dist/shoelace-autoloader.js"></script>
+    <title>Tally App</title>
+</head>
 
-const number = document.querySelector('[data-key="number"]')
-const add =  document.querySelector('[data-key="add"]')
-const subtract =  document.querySelector('[data-key="subtract"]')
-const reset = document.querySelector('[data-key="reset"]')
+<body>
+    <header class="head">
+        <h1>Tally count</h1>
+    </header>
+    
+    <sl-input
+        id="counter-value" data-key="number" readonly value="0">
+    </sl-input>
 
-const subtractHandler = () =>{
-   const newValue= parseInt(number.value) - 1;
-   number.value = newValue
-   if (add.disabled === true){
-    add.disabled = false
-   }
-   if (newValue <= MIN_NUMBER){
-    subtract.disabled = true
-}
-}
-const addHandler = () =>{
-    const newValue= parseInt(number.value) + 1;
-    number.value = newValue
-    if (subtract.disabled === true){
-        subtract.disabled = false
-       }
-    if (newValue >= MAX_NUMBER){
-        add.disabled = true
-    }
-}
-const resetButton = () => {
-    number.value = 0;
-    subtract.disabled = true;
-    add.disabled = false;
-    alert("The counter has been reset.");
- }
- 
-subtract.addEventListener('click', subtractHandler )
-add.addEventListener('click', addHandler)
-reset.addEventListener('click',resetButton )
+    <div class="tally-box">
+        <sl-button
+            data-key="add" class="counter-button"> + </sl-button>
+    </div>
+    <div>
+        <sl-button
+            data-key="subtract" class="counter-button"> - </sl-button>
+    </div>
 
+        <sl-button data-key="reset" class="reset-button" name="arrow-repeat">RESET</sl-button>
 
+        <sl-dialog data-reset-overlay label="Confirmation Message" class="reset-overlay">
+        <p>Resting to 0</p></sl-dialog>
+</body>
 
-
-
-
+</html>
