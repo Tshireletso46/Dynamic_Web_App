@@ -27,6 +27,7 @@ const convertString = products
   })
   .reduce((total, item) => total + item.price, 0);
 console.log(convertString); 
+console.log('');
 
 // concatinating all products names 
 const concatenatingNames = products.reduce((names, item, index) => {
@@ -39,27 +40,39 @@ console.log(concatenatingNames);
 console.log('');
 
 // calculating the highest and lowest prices
-const { highest, lowest } = products.reduce((result, item) => {
-    const price = parseFloat(item.price);
-    if (isNaN(price)) {
-      return result;
+const { highest, lowest } = products.reduce(
+  (result, item) => {
+    if (item.price > result.highest.price) {
+      result.highest = item;
     }
-    if (price > result.highest.price) {
-      result.highest = { name: item.product, price };
-    }
-    if (price < result.lowest.price) {
-      result.lowest = { name: item.product, price };
+    if (item.price < result.lowest.price) {
+      result.lowest = item;
     }
     return result;
   },
-  { highest: { name: '', price: -Infinity }, lowest: { name: '', price: Infinity } }
+  {
+    highest: { price: Number.NEGATIVE_INFINITY },
+    lowest: { price: Number.POSITIVE_INFINITY },
+  }
 );
-console.log(`Highest: ${highest.name}. Lowest: ${lowest.name}`);
+const resultString = `Highest: ${highest.product}. Lowest: ${lowest.product}.`;
+console.log(resultString);
 console.log('');
 
 // recreating an object 
-const recreateArray = Object.entries(products).reduce((result, [key, value]) => {
-  const modifiedKey = key === 'product' ? 'name' : key === 'price' ? 'cost' : key;
-  return { ...result, [modifiedKey]: value };
+const recreate = {
+  product: 'banana',
+  price: 2,
+  quantity: 10,
+};
+const recreatedObject = Object.entries(recreate).reduce((obj, [key, value]) => {
+  if (key === 'product') {
+    obj.name = value;
+  } else if (key === 'price') {
+    obj.cost = value;
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }, {});
-console.log(recreateArray);
+console.log(recreatedObject);
